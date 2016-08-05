@@ -1,5 +1,16 @@
 var preload = function(game){}
 
+WebFontConfig = {
+    active: function() { 
+    	console.log("fonts loaded");
+    	},
+
+    google: {
+      families: ['Galdeano']
+    }
+};
+
+
 preload.prototype = {
 	preload: function(){ 
 		var text = "Loading Game";
@@ -10,6 +21,8 @@ preload.prototype = {
         game.load.spritesheet('buttonBeige', 'assets/images/button/beige.png', 190, 47);
         game.load.spritesheet('aiopaTitle', 'assets/images/Aiopa Title.png', 189, 83);
         game.load.image('conquestTitle', 'assets/images/Conquest Title.png');
+        
+        game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 	},
   	create: function(){
 		this.game.state.start("titleMenu");

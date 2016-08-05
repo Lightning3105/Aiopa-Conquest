@@ -24,15 +24,15 @@ titleMenu.prototype = {
 		    conquestText.anchor.set(0.5, 0.5);
 		    conquestText.width = 500;
 		    conquestText.height = 141/871 * aiopaText.width;
-		    game.add.tween(conquestText).to({ y: 300 }, 350, Phaser.Easing.Quadratic.In, true, 1500);
+		    game.add.tween(conquestText).to({ y: 300 }, 400, Phaser.Easing.Quadratic.In, true, 1500);
 		    
 		    for (var i = 0; i < buttons.length; i++){
 		    	var b = buttons.getAt(i);
 		    	var yCur = b.y;
 		    	b.alpha = 0;
 		    	b.y += 100;
-		    	game.add.tween(b).to({ y: yCur }, 500, null, true, 1800 + i*100);
-		    	game.add.tween(b).to({ alpha: 1 }, 500, null, true, 1800 + i*100);
+		    	game.add.tween(b).to({ y: yCur }, 500, null, true, 1950 + i*150);
+		    	game.add.tween(b).to({ alpha: 1 }, 500, null, true, 1950 + i*150);
 		    }
 		},
 		
