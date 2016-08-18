@@ -22,7 +22,11 @@ preload.prototype = {
         game.load.spritesheet('aiopaTitle', 'assets/images/Aiopa Title.png', 262, 110);
         game.load.image('conquestTitle', 'assets/images/Conquest Title.png');
         
-        game.load.image('tile/plains', 'assets/images/tiles/ground/plains.png');
+        game.load.image('tile/grass', 'assets/images/tiles/ground/grass.png');
+        game.load.image('tile/rock', 'assets/images/tiles/ground/rock.png');
+        game.load.image('tile/sand', 'assets/images/tiles/ground/sand.png');
+        game.load.image('tile/water', 'assets/images/tiles/ground/water.png');
+        game.load.image('tile/forest', 'assets/images/tiles/ground/forest.png');
         
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 	},
