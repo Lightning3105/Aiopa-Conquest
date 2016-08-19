@@ -1,6 +1,6 @@
 var preload = function(game){}
 
-WebFontConfig = {
+var WebFontConfig = {
     active: function() { 
     	console.log("fonts loaded");
     	},
@@ -28,7 +28,7 @@ preload.prototype = {
         game.load.image('tile/water', 'assets/images/tiles/ground/water.png');
         game.load.image('tile/forest', 'assets/images/tiles/ground/forest.png');
         
-        game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+        game.load.script('webfont', 'src/webfont.js');
 	},
   	create: function(){
 		this.game.state.start("titleMenu");
