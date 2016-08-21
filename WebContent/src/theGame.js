@@ -11,10 +11,10 @@ theGame.prototype = {
 			map = generateNoise(v.width, v.height);
 			for (var y = 0; y < v.height; y++) {
 				for (var x = 0; x < v.width; x++) {
-					t = new terrainTile(game, x, y, map[x][y]);
+					t = new terrainTile(x, y, map[x][y]);
 				}
 			}
-			
+			h = new hover();
 		},
 	    
 	    render: function(){
@@ -32,6 +32,24 @@ theGame.prototype = {
 	    	}
 	    	else {
 	    	  this.game.origDragPoint = null;
+	    	};
+	    	
+	    	game.input.mouse.mouseWheelCallback = mouseWheel;
+	    	function mouseWheel(event) {
+	    		if (game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_UP){
+	    			v.scale += 0.1
+	    			game.world.setBounds(0, 0, v.width * 30 * v.scale, v.height * 30 * v.scale);
+	    			game.camera.x += 30 * v.scale
+	    			game.camera.y += 30 * v.scale
+	    		}
+	    		else if (game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_DOWN){
+	    			v.scale -= 0.1
+	    			if (v.width * 30 * v.scale < v.gameWidth || v.height * 30 * v.scale < v.gameHeight){
+	    				v.scale += 0.1
+	    			}
+	    			game.world.setBounds(0, 0, v.width * 30 * v.scale, v.height * 30 * v.scale);
+	    		}
 	    	}
+
 	    }
 }

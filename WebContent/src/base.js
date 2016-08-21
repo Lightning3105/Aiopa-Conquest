@@ -4,6 +4,7 @@ var v = {
 	height: 50,
 	gameWidth: 1280,
 	gameHeight: 720,
+	tileHover: null,
 };
 
 var game = new Phaser.Game(v.gameWidth, v.gameHeight, Phaser.CANVAS, "game");

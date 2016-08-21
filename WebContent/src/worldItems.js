@@ -1,4 +1,4 @@
-function terrainTile(game, x, y, terrain){
+function terrainTile(x, y, terrain){
 	mod = 30 * v.scale;
 	if (terrain == 0) {
 		key = 'tile/water'
@@ -15,13 +15,23 @@ function terrainTile(game, x, y, terrain){
 	if (terrain == 4) {
 		key = 'tile/rock'
 	}
-	Phaser.Sprite.call(this, game, x * mod, y * mod, key);
-	//this.anchor.set(0.5, 0.5);
+	Phaser.Sprite.call(this, game, x * mod + mod/2, y * mod + mod/2, key);
+	this.pos = [x, y];
+	this.anchor.set(0.5, 0.5);
+	this.width = mod
+	this.height = mod
 	game.add.existing(this);
 }
+
+
+
 
 terrainTile.prototype = Object.create(Phaser.Sprite.prototype);
 terrainTile.prototype.constructor = terrainTile;
 terrainTile.prototype.update = function() {
-    //  Automatically called by World.update
+	mod = 30 * v.scale;
+	this.width = mod;
+	this.height = mod;
+	this.x = this.pos[0] * mod + mod/2;
+	this.y = this.pos[1] * mod + mod/2;
 };
