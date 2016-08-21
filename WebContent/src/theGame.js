@@ -6,7 +6,6 @@ theGame.prototype = {
 
 		create: function(){
 			console.log("game started");
-			game.world.setBounds(0, 0, v.width * 30 * v.scale, v.width * 30 * v.scale);
 			game.stage.backgroundColor = "#4488AA";
 			map = generateNoise(v.width, v.height);
 			for (var y = 0; y < v.height; y++) {
@@ -22,10 +21,11 @@ theGame.prototype = {
 	    },
 	    
 	    update: function(){
+	    	console.log(v.scrollX, v.scrollY, 30 * v.scale)
 	    	if (this.game.input.activePointer.isDown) {
 	    	    if (this.game.origDragPoint) { // move the camera by the amount the mouse has moved since last update
-	    	      this.game.camera.x += this.game.origDragPoint.x - this.game.input.activePointer.position.x;
-	    	      this.game.camera.y += this.game.origDragPoint.y - this.game.input.activePointer.position.y;
+	    	      v.scrollX -= this.game.origDragPoint.x - this.game.input.activePointer.position.x;
+	    	      v.scrollY -= this.game.origDragPoint.y - this.game.input.activePointer.position.y;
 	    	    }
 	    	  // set new drag origin to current position
 	    	  this.game.origDragPoint = this.game.input.activePointer.position.clone();
@@ -38,16 +38,12 @@ theGame.prototype = {
 	    	function mouseWheel(event) {
 	    		if (game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_UP){
 	    			v.scale += 0.1
-	    			game.world.setBounds(0, 0, v.width * 30 * v.scale, v.height * 30 * v.scale);
-	    			game.camera.x += 30 * v.scale
-	    			game.camera.y += 30 * v.scale
 	    		}
 	    		else if (game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_DOWN){
 	    			v.scale -= 0.1
 	    			if (v.width * 30 * v.scale < v.gameWidth || v.height * 30 * v.scale < v.gameHeight){
 	    				v.scale += 0.1
 	    			}
-	    			game.world.setBounds(0, 0, v.width * 30 * v.scale, v.height * 30 * v.scale);
 	    		}
 	    	}
 

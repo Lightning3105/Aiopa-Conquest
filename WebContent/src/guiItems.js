@@ -14,6 +14,7 @@ hover.prototype.update = function() {
 	this.width = mod
 	this.height = mod
 	
-	this.x = Math.round(game.input.x / mod) * mod + game.camera.x
-	this.y = Math.round(game.input.y / mod) * mod + game.camera.y
+	this.x = Math.round((game.input.x - (v.scrollX % mod)) / mod) * mod + (v.scrollX % mod)
+	this.y = Math.round((game.input.y - (v.scrollY % mod)) / mod) * mod + (v.scrollY % mod)
+	console.log(v.scrollX % mod)
 };
