@@ -18,6 +18,10 @@ preload.prototype = {
         var t = game.add.text(game.world.centerX, game.world.centerY, text, style);
         t.anchor.set(0.5);
         
+        var style = { font: "30px Arial", fill: "#ffffff", align: "center" };
+        this.loadingText = game.add.text(game.world.centerX, game.world.centerY + 60, "0%", style)
+        this.loadingText.anchor.set(0.5);
+        
         game.load.spritesheet('buttonBeige', 'assets/images/button/beige.png', 190, 47);
         game.load.spritesheet('aiopaTitle', 'assets/images/Aiopa Title.png', 262, 110);
         game.load.image('conquestTitle', 'assets/images/Conquest Title.png');
@@ -34,5 +38,10 @@ preload.prototype = {
 	},
   	create: function(){
 		this.game.state.start("titleMenu");
+	},
+	
+	loadUpdate: function() {
+		// update loading text percent
+		this.loadingText.setText(this.load.progress + "%");
 	}
 }
