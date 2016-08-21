@@ -25,6 +25,7 @@ preload.prototype = {
         game.load.spritesheet('buttonBeige', 'assets/images/button/beige.png', 190, 47);
         game.load.spritesheet('aiopaTitle', 'assets/images/Aiopa Title.png', 262, 110);
         game.load.image('conquestTitle', 'assets/images/Conquest Title.png');
+        game.load.video('logo', 'assets/images/Lightopa Games Intro.mp4')
         
         game.load.image('tile/grass', 'assets/images/tiles/ground/grass.png');
         game.load.image('tile/rock', 'assets/images/tiles/ground/rock.png');
