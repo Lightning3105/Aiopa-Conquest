@@ -1,6 +1,6 @@
 function hover(){
 	mod = 30 * v.scale;
-	Phaser.Sprite.call(this, game, 0, 0, 'tile/water');
+	Phaser.Sprite.call(this, game, 0, 0, 'gui/selector');
 	this.width = mod
 	this.height = mod
 	this.anchor.set(0.5, 0.5);
@@ -16,5 +16,4 @@ hover.prototype.update = function() {
 	
 	this.x = Math.round((game.input.x - (v.scrollX % mod)) / mod) * mod + (v.scrollX % mod)
 	this.y = Math.round((game.input.y - (v.scrollY % mod)) / mod) * mod + (v.scrollY % mod)
-	console.log(v.scrollX % mod)
 };

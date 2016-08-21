@@ -21,7 +21,6 @@ theGame.prototype = {
 	    },
 	    
 	    update: function(){
-	    	console.log(v.scrollX, v.scrollY, 30 * v.scale)
 	    	if (this.game.input.activePointer.isDown) {
 	    	    if (this.game.origDragPoint) { // move the camera by the amount the mouse has moved since last update
 	    	      v.scrollX -= this.game.origDragPoint.x - this.game.input.activePointer.position.x;

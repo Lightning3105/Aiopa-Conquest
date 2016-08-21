@@ -28,6 +28,8 @@ preload.prototype = {
         game.load.image('tile/water', 'assets/images/tiles/ground/water.png');
         game.load.image('tile/forest', 'assets/images/tiles/ground/forest.png');
         
+        game.load.image('gui/selector', 'assets/images/gui/selector.png');
+        
         game.load.script('webfont', 'src/webfont.js');
 	},
   	create: function(){
