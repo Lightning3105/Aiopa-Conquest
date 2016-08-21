@@ -23,8 +23,9 @@ theGame.prototype = {
 	    update: function(){
 	    	if (this.game.input.activePointer.isDown) {
 	    	    if (this.game.origDragPoint) { // move the camera by the amount the mouse has moved since last update
-	    	      v.scrollX -= this.game.origDragPoint.x - this.game.input.activePointer.position.x;
-	    	      v.scrollY -= this.game.origDragPoint.y - this.game.input.activePointer.position.y;
+	    	    	v.scrollX -= this.game.origDragPoint.x - this.game.input.activePointer.position.x;
+	    	        v.scrollY -= this.game.origDragPoint.y - this.game.input.activePointer.position.y;
+	    	    	checkMap()
 	    	    }
 	    	  // set new drag origin to current position
 	    	  this.game.origDragPoint = this.game.input.activePointer.position.clone();
@@ -44,6 +45,7 @@ theGame.prototype = {
 	    				v.scale += 0.1
 	    			}
 	    		}
+	    		checkMap()
 	    	}
 
 	    }
