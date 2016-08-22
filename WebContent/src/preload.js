@@ -38,7 +38,14 @@ preload.prototype = {
         game.load.script('webfont', 'src/webfont.js');
 	},
   	create: function(){
-		this.game.state.start("titleMenu");
+  		video = game.add.video('logo');
+  	    video.play(false);
+  	    video.addToWorld();
+  	    
+  	    video.onComplete.add(function(){
+			game.state.start("titleMenu")
+		},
+		this)
 	},
 	
 	loadUpdate: function() {
