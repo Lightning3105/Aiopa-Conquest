@@ -8,11 +8,22 @@ theGame.prototype = {
 			console.log("game started");
 			game.stage.backgroundColor = "#4488AA";
 			map = generateNoise(v.width, v.height);
+			var tiles = game.add.group()
 			for (var y = 0; y < v.height; y++) {
 				for (var x = 0; x < v.width; x++) {
-					t = new terrainTile(x, y, map[x][y]);
+					t = new terrainTile(x, y, map[x][y])
+					tiles.add(t)
 				}
 			}
+			for (t in tiles.children){
+				if (tiles.children[t].terrain == 2){
+					if (Math.random() > 0.5){
+						s = new shrub(tiles.children[t], randomInt(-15, 15), randomInt(-15, 15), 'shrub/grass-' + randomInt(1, 4))
+						tiles.children[t].addChild(s)
+					}
+				}
+			}
+			
 			h = new hover();
 			
 			var popButtons = game.add.group();
@@ -56,7 +67,6 @@ theGame.prototype = {
 	    			}
 	    		}
 	    		checkMap()
-	    		console.log((v.width * 30 * v.scale) - (v.width * 30 * (v.scale - 0.1)))
 	    	}
 
 	    }

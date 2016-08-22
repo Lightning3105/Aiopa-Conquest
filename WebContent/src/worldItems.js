@@ -17,6 +17,7 @@ function terrainTile(x, y, terrain){
 	}
 	Phaser.Sprite.call(this, game, x * mod, y * mod, key);
 	this.pos = [x, y];
+	this.terrain = terrain;
 	this.anchor.set(0.5, 0.5);
 	this.width = mod
 	this.height = mod
@@ -42,3 +43,18 @@ terrainTile.prototype.update = function() {
 		this.visible = true
 	}
 };
+
+function shrub(tile, x, y, key){
+	Phaser.Sprite.call(this, game, x, y, key);
+	this.pos = [x, y];
+	this.anchor.set(0.5, 0.5);
+	tile.addChild(this)
+	this.width = 40
+	this.height = 40
+	//game.add.existing(this);
+	game.add.existing(this)
+}
+
+shrub.prototype = Object.create(Phaser.Sprite.prototype);
+shrub.prototype.constructor = shrub;
+shrub.prototype.update = function() {}

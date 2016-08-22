@@ -36,7 +36,6 @@ function checkMap(){
 function popButton(x, type){
 	//Phaser.Button.call(this, game, x, 700, 'gui/blankButton', function(){}, this, 1, 0, 1, 0);
 	var button = game.make.button(x, 650, 'gui/blankButton', function(){}, this, 1, 0, 0, 0);
-	console.log(button)
 	button.anchor.set(0.5, 0.5);
 	button.width = 100;
 	button.height = 100;
