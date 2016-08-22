@@ -14,6 +14,12 @@ theGame.prototype = {
 				}
 			}
 			h = new hover();
+			
+			var popButtons = game.add.group();
+			popButtons.add(popButton(70, "buildings"))
+			popButtons.add(popButton(220, "units"))
+			popButtons.add(popButton(370, "orders"))
+			popButtons.add(popButton(520, "map"))
 		},
 	    
 	    render: function(){
@@ -38,14 +44,19 @@ theGame.prototype = {
 	    	function mouseWheel(event) {
 	    		if (game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_UP){
 	    			v.scale += 0.1
+	    			v.scrollX -= ((v.width * 30 * v.scale) - (v.width * 30 * (v.scale - 0.1)))/2
+	    			v.scrollY -= ((v.height * 30 * v.scale) - (v.height * 30 * (v.scale - 0.1)))/2
 	    		}
 	    		else if (game.input.mouse.wheelDelta == Phaser.Mouse.WHEEL_DOWN){
 	    			v.scale -= 0.1
+	    			v.scrollX += ((v.width * 30 * v.scale) - (v.width * 30 * (v.scale - 0.1)))/2
+	    			v.scrollY += ((v.height * 30 * v.scale) - (v.height * 30 * (v.scale - 0.1)))/2
 	    			if (v.width * 30 * v.scale < v.gameWidth || v.height * 30 * v.scale < v.gameHeight){
 	    				v.scale += 0.1
 	    			}
 	    		}
 	    		checkMap()
+	    		console.log((v.width * 30 * v.scale) - (v.width * 30 * (v.scale - 0.1)))
 	    	}
 
 	    }

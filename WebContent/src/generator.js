@@ -21,10 +21,10 @@ function generateNoise(width, height){
 			else if (n < 0.15){ // sand
 				map[y][x] = 1;
 			}
-			else if (n < 0.5 && n < 0.6){ // forest
+			else if (n < 0.55 && n < 0.6){ // forest
 				map[y][x] = 3;
 			}
-			else if (n < 0.8){ // grass
+			else if (n < 0.9){ // grass
 				map[y][x] = 2;
 			}
 			else if (n <= 1){ // rock

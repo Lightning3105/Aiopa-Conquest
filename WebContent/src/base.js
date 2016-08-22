@@ -1,7 +1,7 @@
 var v = {
 	scale: 1,
-	width: 50,
-	height: 50,
+	width: 100,
+	height: 100,
 	gameWidth: 1280,
 	gameHeight: 720,
 	tileHover: null,

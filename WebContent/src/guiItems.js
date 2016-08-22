@@ -32,3 +32,38 @@ function checkMap(){
   	  v.scrollY = (-v.width * 30 * v.scale) + v.gameHeight + v.scale * 15
     }
 }
+
+function popButton(x, type){
+	//Phaser.Button.call(this, game, x, 700, 'gui/blankButton', function(){}, this, 1, 0, 1, 0);
+	var button = game.make.button(x, 650, 'gui/blankButton', function(){}, this, 1, 0, 0, 0);
+	console.log(button)
+	button.anchor.set(0.5, 0.5);
+	button.width = 100;
+	button.height = 100;
+	
+	button.onInputOver.add(function(){button.y += 4}, this)
+	button.onInputOut.add(function(){button.y -= 4}, this)
+	
+	if (type == "buildings"){
+		var iconKey = 'gui/buildingsIcon';
+	}
+	if (type == "units"){
+		var iconKey = 'gui/unitsIcon';
+	}
+	if (type == "orders"){
+		var iconKey = 'gui/ordersIcon';
+	}
+	if (type == "map"){
+		var iconKey = 'gui/mapIcon';
+	}
+	var icon = new Phaser.Sprite(game, 0, 0, iconKey)
+	icon.width = 30
+	icon.height = 30
+	icon.anchor.set(0.5, 0.5)
+	button.addChild(icon)
+	return button
+}
+/*
+popButton.prototype = Object.create(Phaser.Button.prototype);
+popButton.prototype.constructor = popButton;
+popButton.prototype.update = function() {} */

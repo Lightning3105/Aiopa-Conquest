@@ -22,7 +22,7 @@ preload.prototype = {
         this.loadingText = game.add.text(game.world.centerX, game.world.centerY + 60, "0%", style)
         this.loadingText.anchor.set(0.5);
         
-        game.load.spritesheet('buttonBeige', 'assets/images/button/beige.png', 190, 47);
+        game.load.spritesheet('buttonBeige', 'assets/images/button/beige.png', 190, 49);
         game.load.spritesheet('aiopaTitle', 'assets/images/Aiopa Title.png', 262, 110);
         game.load.image('conquestTitle', 'assets/images/Conquest Title.png');
         game.load.video('logo', 'assets/images/Lightopa Games Intro.mp4')
@@ -34,18 +34,24 @@ preload.prototype = {
         game.load.image('tile/forest', 'assets/images/tiles/ground/forest.png');
         
         game.load.image('gui/selector', 'assets/images/gui/selector.png');
+        game.load.spritesheet('gui/blankButton', 'assets/images/gui/blankButton.png', 45, 49);
+        game.load.image('gui/buildingsIcon', 'assets/images/gui/buildingsIcon.png');
+        game.load.image('gui/unitsIcon', 'assets/images/gui/unitsIcon.png');
+        game.load.image('gui/ordersIcon', 'assets/images/gui/ordersIcon.png');
+        game.load.image('gui/mapIcon', 'assets/images/gui/mapIcon.png');
         
         game.load.script('webfont', 'src/webfont.js');
 	},
   	create: function(){
-  		video = game.add.video('logo');
+  		game.state.start("theGame")
+  		/*video = game.add.video('logo');
   	    video.play(false);
   	    video.addToWorld();
   	    
   	    video.onComplete.add(function(){
 			game.state.start("titleMenu")
 		},
-		this)
+		this) */
 	},
 	
 	loadUpdate: function() {

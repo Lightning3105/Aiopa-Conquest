@@ -31,4 +31,14 @@ terrainTile.prototype.update = function() {
 	this.height = mod;
 	this.x = this.pos[0] * mod + v.scrollX;
 	this.y = this.pos[1] * mod + v.scrollY;
+	
+	if (this.x < 0 - mod/2 || this.x > v.gameWidth + mod/2) {
+		this.visible = false
+	}
+	else if (this.y < 0 - mod/2 || this.y > v.gameHeight + mod/2) {
+		this.visible = false
+	}
+	else {
+		this.visible = true
+	}
 };
