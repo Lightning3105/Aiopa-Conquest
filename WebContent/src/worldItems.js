@@ -21,7 +21,18 @@ function terrainTile(x, y, terrain){
 	this.anchor.set(0.5, 0.5);
 	this.width = mod
 	this.height = mod
+	
+	/*
+	this.highlight = new Phaser.Graphics(game)
+	this.highlight.beginFill(0xff0000, 100);
+	this.highlight.lineStyle(2, 0xff0000, 1);
+	this.highlight.drawRect(0, 0, mod, mod)
+	this.highlight.endFill()
+	this.highlight = this.highlight.generateTexture()
+	this.highlight = new Phaser.Sprite(game, 0, 0, this.highlight)
+	this.addChild(this.highlight) */
 	game.add.existing(this);
+	
 }
 
 terrainTile.prototype = Object.create(Phaser.Sprite.prototype);
@@ -32,6 +43,13 @@ terrainTile.prototype.update = function() {
 	this.height = mod;
 	this.x = this.pos[0] * mod + v.scrollX;
 	this.y = this.pos[1] * mod + v.scrollY;
+	
+	/*if (v.selectedTile == this){
+		this.highlight.visible = true
+	}
+	else{
+		this.highlight.visible = false
+	} */
 	
 	if (this.x < 0 - mod/1.5 || this.x > v.gameWidth + mod/1.5) {
 		this.visible = false

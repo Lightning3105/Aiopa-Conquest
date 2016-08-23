@@ -7,6 +7,9 @@ var v = {
 	tileHover: null,
 	scrollX: 0,
 	scrollY: 0,
+	selectedTile: null,
+	tiles: null,
+	tMenu: null,
 };
 
 var game = new Phaser.Game(v.gameWidth, v.gameHeight, Phaser.CANVAS, "game");

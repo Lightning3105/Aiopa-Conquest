@@ -8,25 +8,25 @@ theGame.prototype = {
 			console.log("game started");
 			game.stage.backgroundColor = "#4488AA";
 			map = generateNoise(v.width, v.height);
-			var tiles = game.add.group()
+			v.tiles = game.add.group()
 			for (var y = 0; y < v.height; y++) {
 				for (var x = 0; x < v.width; x++) {
 					t = new terrainTile(x, y, map[x][y])
-					tiles.add(t)
+					v.tiles.add(t)
 				}
 			}
 			
-			for (t in tiles.children){
-				if (tiles.children[t].terrain == 2){
+			for (t in v.tiles.children){
+				if (v.tiles.children[t].terrain == 2){
 					if (Math.random() > 0.5){
-						s = new shrub(tiles.children[t], randomInt(-15, 15), randomInt(-15, 15), 'shrub/grass-' + randomInt(1, 4))
-						tiles.children[t].addChild(s)
+						s = new shrub(v.tiles.children[t], randomInt(-15, 15), randomInt(-15, 15), 'shrub/grass-' + randomInt(1, 4))
+						v.tiles.children[t].addChild(s)
 					}
 				}
-				if (tiles.children[t].terrain == 3){
+				if (v.tiles.children[t].terrain == 3){
 					if (Math.random() > 0.5){
-						s = new tree(tiles.children[t], randomInt(-15, 15), randomInt(-15, 15), 'tree/tree-' + randomInt(1, 1))
-						tiles.children[t].addChild(s)
+						s = new tree(v.tiles.children[t], randomInt(-15, 15), randomInt(-15, 15), 'tree/tree-' + randomInt(1, 1))
+						v.tiles.children[t].addChild(s)
 					}
 				}
 			}
@@ -41,12 +41,17 @@ theGame.prototype = {
 		},
 	    
 	    render: function(){
-	    	
+	    	/*if (v.selectedTile != null){
+	    		this.game.debug.spriteInfo(v.selectedTile, 10, 10, 'f000000')
+	    		var rect = new Phaser.Rectangle(v.selectedTile.x, v.selectedTile.y, 30 * v.scale, 30 * v.scale);
+	    		this.game.debug.geom(rect, 'ff00000')
+	    	}*/
 	    },
 	    
 	    update: function(){
-	    	if (this.game.input.activePointer.isDown) {
+	    	if (this.game.input.activePointer.middleButton.isDown) {
 	    	    if (this.game.origDragPoint) { // move the camera by the amount the mouse has moved since last update
+	    	    	
 	    	    	v.scrollX -= this.game.origDragPoint.x - this.game.input.activePointer.position.x;
 	    	        v.scrollY -= this.game.origDragPoint.y - this.game.input.activePointer.position.y;
 	    	    	checkMap()
@@ -57,6 +62,23 @@ theGame.prototype = {
 	    	else {
 	    	  this.game.origDragPoint = null;
 	    	};
+	    	
+	    	if (game.input.keyboard.isDown(Phaser.Keyboard.A)){
+	    		v.scrollX += 5
+	    		checkMap()
+	    	}
+	    	if (game.input.keyboard.isDown(Phaser.Keyboard.D)){
+	    		v.scrollX -= 5
+	    		checkMap()
+	    	}
+	    	if (game.input.keyboard.isDown(Phaser.Keyboard.W)){
+	    		v.scrollY += 5
+	    		checkMap()
+	    	}
+	    	if (game.input.keyboard.isDown(Phaser.Keyboard.S)){
+	    		v.scrollY -= 5
+	    		checkMap()
+	    	}
 	    	
 	    	game.input.mouse.mouseWheelCallback = mouseWheel;
 	    	function mouseWheel(event) {
