@@ -38,6 +38,8 @@ preload.prototype = {
         game.load.image('shrub/grass-3', 'assets/images/tiles/shrubs/grass-3.png');
         game.load.image('shrub/grass-4', 'assets/images/tiles/shrubs/grass-4.png');
         
+        game.load.image('tree/tree-1', 'assets/images/tiles/trees/tree-1.png');
+        
         game.load.image('gui/selector', 'assets/images/gui/selector.png');
         game.load.spritesheet('gui/blankButton', 'assets/images/gui/blankButton.png', 45, 49);
         game.load.image('gui/buildingsIcon', 'assets/images/gui/buildingsIcon.png');

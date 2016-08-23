@@ -33,10 +33,10 @@ terrainTile.prototype.update = function() {
 	this.x = this.pos[0] * mod + v.scrollX;
 	this.y = this.pos[1] * mod + v.scrollY;
 	
-	if (this.x < 0 - mod/2 || this.x > v.gameWidth + mod/2) {
+	if (this.x < 0 - mod/1.5 || this.x > v.gameWidth + mod/1.5) {
 		this.visible = false
 	}
-	else if (this.y < 0 - mod/2 || this.y > v.gameHeight + mod/2) {
+	else if (this.y < 0 - mod/1.5 || this.y > v.gameHeight + mod/1.5) {
 		this.visible = false
 	}
 	else {
@@ -58,3 +58,18 @@ function shrub(tile, x, y, key){
 shrub.prototype = Object.create(Phaser.Sprite.prototype);
 shrub.prototype.constructor = shrub;
 shrub.prototype.update = function() {}
+
+function tree(tile, x, y, key){
+	Phaser.Sprite.call(this, game, x, y, key);
+	this.pos = [x, y];
+	this.anchor.set(0.5, 0.5);
+	tile.addChild(this)
+	this.width = 160
+	this.height = 160
+	//game.add.existing(this);
+	game.add.existing(this)
+}
+
+tree.prototype = Object.create(Phaser.Sprite.prototype);
+tree.prototype.constructor = tree;
+tree.prototype.update = function() {}

@@ -15,10 +15,17 @@ theGame.prototype = {
 					tiles.add(t)
 				}
 			}
+			
 			for (t in tiles.children){
 				if (tiles.children[t].terrain == 2){
 					if (Math.random() > 0.5){
 						s = new shrub(tiles.children[t], randomInt(-15, 15), randomInt(-15, 15), 'shrub/grass-' + randomInt(1, 4))
+						tiles.children[t].addChild(s)
+					}
+				}
+				if (tiles.children[t].terrain == 3){
+					if (Math.random() > 0.5){
+						s = new tree(tiles.children[t], randomInt(-15, 15), randomInt(-15, 15), 'tree/tree-' + randomInt(1, 1))
 						tiles.children[t].addChild(s)
 					}
 				}

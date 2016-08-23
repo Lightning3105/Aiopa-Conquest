@@ -16,6 +16,13 @@ hover.prototype.update = function() {
 	
 	this.x = Math.round((game.input.x - (v.scrollX % mod)) / mod) * mod + (v.scrollX % mod)
 	this.y = Math.round((game.input.y - (v.scrollY % mod)) / mod) * mod + (v.scrollY % mod)
+	
+	if (this.y < 580){
+		this.visible = false;
+	}
+	else{
+		this.visible = true;
+	}
 };
 
 function checkMap(){
