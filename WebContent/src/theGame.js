@@ -33,6 +33,8 @@ theGame.prototype = {
 			
 			h = new hover();
 			
+			s = new selectedOutline()
+			
 			var popButtons = game.add.group();
 			popButtons.add(popButton(70, "buildings"))
 			popButtons.add(popButton(220, "units"))

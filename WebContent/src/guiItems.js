@@ -53,6 +53,50 @@ function checkMap(){
     }
 }
 
+function selectedOutline(){
+	mod = 30 * v.scale;
+	this.gen = function(){
+		var out = new Phaser.Graphics(game)
+		out.beginFill(0xff0000, 0.3);
+		out.lineStyle(1 * v.scale, 0xff0000, 1);
+		out.drawRect(0, 0, mod, mod)
+		out.endFill()
+		out = out.generateTexture()
+		return out
+	}
+	Phaser.Sprite.call(this, game, 0, 0, this.gen());
+	this.anchor.set(0.5, 0.5);
+	this.width = mod
+	this.height = mod
+	game.add.existing(this);
+}
+
+selectedOutline.prototype = Object.create(Phaser.Sprite.prototype);
+selectedOutline.prototype.constructor = selectedOutline;
+selectedOutline.prototype.update = function() {
+	mod = 30 * v.scale;
+	this.width = mod;
+	this.height = mod;
+	this.key = this.gen()
+	if (v.selectedTile != null){
+		this.x = v.selectedTile.pos[0] * mod + v.scrollX;
+		this.y = v.selectedTile.pos[1] * mod + v.scrollY;
+		
+		if (this.x < 0 - mod/1.5 || this.x > v.gameWidth + mod/1.5) {
+			this.visible = false
+		}
+		else if (this.y < 0 - mod/1.5 || this.y > v.gameHeight + mod/1.5) {
+			this.visible = false
+		}
+		else {
+			this.visible = true
+		}
+	}
+	else{
+		this.visible = false
+	}
+};
+
 function popButton(x, type){
 	//Phaser.Button.call(this, game, x, 700, 'gui/blankButton', function(){}, this, 1, 0, 1, 0);
 	var button = game.make.button(x, 650, 'gui/blankButton', function(){}, this, 1, 0, 0, 0);
@@ -88,7 +132,7 @@ function tileMenu(){
 	mod = 30 * v.scale
 	this.size = [150, 250] //Calculate this later
 	x = this.pos[0] * mod + v.scrollX + 20 * v.scale;
-	y = this.pos[1] * mod + v.scrollY - 10/2;
+	y = this.pos[1] * mod + v.scrollY - 1/2;
 	back = new Phaser.Graphics(game)
 	back.beginFill(0xffce99);
 	back.drawRoundedRect(0, 0, this.size[0], this.size[1], 12)
@@ -98,7 +142,9 @@ function tileMenu(){
 	game.add.existing(this);
 	this.width = 1
 	this.height = 1
-	game.add.tween(this).to({ width: this.size[0], height: this.size[1] }, 500, null, true, 0);
+	game.add.tween(this).to({ width: this.size[0], height: this.size[1] }, 250, null, true, 0);
+	
+	
 	return this
 }
 
@@ -109,10 +155,10 @@ tileMenu.prototype.update = function() {
 	this.x = this.pos[0] * mod + v.scrollX + 20 * v.scale;
 	this.y = this.pos[1] * mod + v.scrollY - this.height/2;
 	
-	if (this.x < 0 - mod/1.5 || this.x > v.gameWidth + mod/1.5) {
+	if (this.x < 0 - this.width || this.x > v.gameWidth + this.width) {
 		this.visible = false
 	}
-	else if (this.y < 0 - mod/1.5 || this.y > v.gameHeight + mod/1.5) {
+	else if (this.y < 0 - this.height || this.y > v.gameHeight + this.height) {
 		this.visible = false
 	}
 	else {
