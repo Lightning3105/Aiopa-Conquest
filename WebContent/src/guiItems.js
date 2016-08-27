@@ -25,7 +25,8 @@ hover.prototype.update = function() {
 	}
 	
 	if (this.game.input.activePointer.leftButton.isDown) {
-		p = [(this.x - v.scrollX)/mod, (this.y - v.scrollY)/mod]
+		p = [Math.round((this.x - v.scrollX)/mod), Math.round((this.y - v.scrollY)/mod)]
+		console.log("down", p)
 		for (t in v.tiles.children){
 			if (v.tiles.children[t].pos[0] == p[0] && v.tiles.children[t].pos[1] == p[1]){
 				if (v.tMenu != null){

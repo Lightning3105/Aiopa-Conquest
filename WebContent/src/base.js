@@ -8,7 +8,9 @@ var v = {
 	scrollX: 0,
 	scrollY: 0,
 	selectedTile: null,
-	tiles: null,
+	tiles: null, //group for tiles
+	ground: null, //group for unordered tile additions
+	layered: null, //group for objects that are 2.5D
 	tMenu: null,
 };
 

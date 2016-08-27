@@ -66,28 +66,53 @@ function shrub(tile, x, y, key){
 	Phaser.Sprite.call(this, game, x, y, key);
 	this.pos = [x, y];
 	this.anchor.set(0.5, 0.5);
-	tile.addChild(this)
-	this.width = 40
-	this.height = 40
+	//tile.addChild(this)
+	this.tile = tile
+	this.size = [20, 20]
 	//game.add.existing(this);
 	game.add.existing(this)
 }
 
 shrub.prototype = Object.create(Phaser.Sprite.prototype);
 shrub.prototype.constructor = shrub;
-shrub.prototype.update = function() {}
+shrub.prototype.update = function() {
+	mod = 30 * v.scale;
+	this.width = this.size[0] * v.scale;
+	this.height = this.size[1] * v.scale;
+	this.x = this.tile.pos[0] * mod + v.scrollX + this.pos[0] * v.scale;
+	this.y = this.tile.pos[1] * mod + v.scrollY + this.pos[1] * v.scale;
+	
+	this.visible = this.tile.visible
+	/*if (this.x < 0 - mod/1.5 || this.x > v.gameWidth + mod/1.5) {
+		this.visible = false
+	}
+	else if (this.y < 0 - mod/1.5 || this.y > v.gameHeight + mod/1.5) {
+		this.visible = false
+	}
+	else {
+		this.visible = true
+	}*/
+}
 
 function tree(tile, x, y, key){
 	Phaser.Sprite.call(this, game, x, y, key);
 	this.pos = [x, y];
 	this.anchor.set(0.5, 0.5);
-	tile.addChild(this)
-	this.width = 160
-	this.height = 160
+	//tile.addChild(this)
+	this.tile = tile
+	this.size = [80, 80]
 	//game.add.existing(this);
 	game.add.existing(this)
 }
 
 tree.prototype = Object.create(Phaser.Sprite.prototype);
 tree.prototype.constructor = tree;
-tree.prototype.update = function() {}
+tree.prototype.update = function() {
+	mod = 30 * v.scale;
+	this.width = this.size[0] * v.scale;
+	this.height = this.size[1] * v.scale;
+	this.x = this.tile.pos[0] * mod + v.scrollX + this.pos[0] * v.scale;
+	this.y = this.tile.pos[1] * mod + v.scrollY + this.pos[1] * v.scale;
+	
+	this.visible = this.tile.visible
+}

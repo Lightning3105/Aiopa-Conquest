@@ -16,17 +16,21 @@ theGame.prototype = {
 				}
 			}
 			
+			v.ground = game.add.group()
+			v.layered = game.add.group()
 			for (t in v.tiles.children){
 				if (v.tiles.children[t].terrain == 2){
 					if (Math.random() > 0.5){
-						s = new shrub(v.tiles.children[t], randomInt(-15, 15), randomInt(-15, 15), 'shrub/grass-' + randomInt(1, 4))
-						v.tiles.children[t].addChild(s)
+						s = new shrub(v.tiles.children[t], randomInt(-5, 5), randomInt(-5, 5), 'shrub/grass-' + randomInt(1, 4))
+						v.ground.add(s)
+						//v.tiles.children[t].addChild(s)
 					}
 				}
 				if (v.tiles.children[t].terrain == 3){
 					if (Math.random() > 0.5){
-						s = new tree(v.tiles.children[t], randomInt(-15, 15), randomInt(-15, 15), 'tree/tree-' + randomInt(1, 1))
-						v.tiles.children[t].addChild(s)
+						s = new tree(v.tiles.children[t], randomInt(-5, 5), randomInt(-5, 5), 'tree/tree-' + randomInt(1, 1))
+						v.layered.add(s)
+						//v.tiles.children[t].addChild(s)
 					}
 				}
 			}
@@ -34,6 +38,12 @@ theGame.prototype = {
 			h = new hover();
 			
 			s = new selectedOutline()
+			
+			game.world.bringToTop(v.tiles)
+			game.world.bringToTop(v.ground)
+			game.world.bringToTop(s)
+			game.world.bringToTop(h)
+			game.world.bringToTop(v.layered)
 			
 			var popButtons = game.add.group();
 			popButtons.add(popButton(70, "buildings"))
