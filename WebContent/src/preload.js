@@ -49,6 +49,9 @@ preload.prototype = {
         game.load.image('gui/ordersIcon', 'assets/images/gui/ordersIcon.png');
         game.load.image('gui/mapIcon', 'assets/images/gui/mapIcon.png');
         
+        game.load.image('gui/harvestIcon', 'assets/images/gui/harvestIcon.png');
+        game.load.image('gui/chopIcon', 'assets/images/gui/chopIcon.png');
+        
         game.load.script('webfont', 'src/webfont.js');
 	},
   	create: function(){

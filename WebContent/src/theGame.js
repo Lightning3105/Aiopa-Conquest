@@ -28,7 +28,7 @@ theGame.prototype = {
 				}
 				if (v.tiles.children[t].terrain == 3){
 					if (Math.random() > 0.5){
-						s = new tree(v.tiles.children[t], randomInt(-5, 5), randomInt(-5, 5), 'tree/tree-' + randomInt(1, 1))
+						s = new tree(v.tiles.children[t], randomInt(-5, 5), randomInt(-5, 0), 'tree/tree-' + randomInt(1, 1))
 						v.layered.add(s)
 						//v.tiles.children[t].addChild(s)
 					}
@@ -61,6 +61,7 @@ theGame.prototype = {
 	    },
 	    
 	    update: function(){
+	    	v.layered.sort('y', Phaser.Group.SORT_ASCENDING);
 	    	if (this.game.input.activePointer.middleButton.isDown) {
 	    	    if (this.game.origDragPoint) { // move the camera by the amount the mouse has moved since last update
 	    	    	

@@ -32,7 +32,6 @@ function labelButton(x, y, width, label, key, callback, callbackContext, style){
 	
 	var text = new Phaser.Text(game, 0, 0, label, style);
 	while(text.height > button.height-30 && text.fontSize > 0) {  text.fontSize--;  text.updateText();}
-	console.log(text.height + "  " + button.height)
 	text.anchor.set(0.5, 0.49);
 	button.addChild(text);
 	return button

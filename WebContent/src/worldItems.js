@@ -70,6 +70,7 @@ function shrub(tile, x, y, key){
 	this.tile = tile
 	this.size = [20, 20]
 	//game.add.existing(this);
+	this.type = "grass";
 	game.add.existing(this)
 }
 
@@ -97,11 +98,12 @@ shrub.prototype.update = function() {
 function tree(tile, x, y, key){
 	Phaser.Sprite.call(this, game, x, y, key);
 	this.pos = [x, y];
-	this.anchor.set(0.5, 0.5);
+	this.anchor.set(0.5, 1);
 	//tile.addChild(this)
 	this.tile = tile
 	this.size = [80, 80]
 	//game.add.existing(this);
+	this.type = "tree";
 	game.add.existing(this)
 }
 

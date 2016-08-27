@@ -26,7 +26,6 @@ hover.prototype.update = function() {
 	
 	if (this.game.input.activePointer.leftButton.isDown) {
 		p = [Math.round((this.x - v.scrollX)/mod), Math.round((this.y - v.scrollY)/mod)]
-		console.log("down", p)
 		for (t in v.tiles.children){
 			if (v.tiles.children[t].pos[0] == p[0] && v.tiles.children[t].pos[1] == p[1]){
 				if (v.tMenu != null){
@@ -128,10 +127,52 @@ function popButton(x, type){
 	return button
 }
 
+function harvestButton(y, type){
+	Phaser.Button.call(this, game, 100, y, 'buttonBeige', function(){}, this, 1, 0, 1, 0);
+	//var button = game.make.button(x, 650, 'gui/blankButton', function(){}, this, 1, 0, 0, 0);
+	this.anchor.set(0.5, 0.5);
+	this.width = 180;
+	this.height = (47 / 190) * this.width;
+	
+	this.onInputOver.add(function(){this.y += 4}, this)
+	this.onInputOut.add(function(){this.y -= 4}, this)
+	
+	if (type == "grass"){
+		var iconKey = 'gui/harvestIcon';
+		var label = "Harvest Grass"
+	}
+	if (type == "tree"){
+		var iconKey = 'gui/chopIcon';
+		var label = "Chop Tree"
+	}
+	var icon = new Phaser.Sprite(game, -70, 0, iconKey)
+	icon.width = 30
+	icon.height = 30
+	icon.anchor.set(0.5, 0.5)
+	this.addChild(icon)
+	
+	style = {
+			'font': 'Galdeano', 
+			'fill': 'black', 
+			'fontSize': ((this.width - (40/190 * this.width)) / label.length) * 2
+		}
+	var text = new Phaser.Text(game, -40, 0, label, style);
+	//while(text.height > this.height-30 && text.fontSize > 0) {  text.fontSize--;  text.updateText();}
+	text.anchor.set(0, 0.49);
+	this.addChild(text);
+	return this
+}
+
+harvestButton.prototype = Object.create(Phaser.Button.prototype);
+harvestButton.prototype.constructor = harvestButton;
+harvestButton.prototype.update = function() {}
+
+
+
 function tileMenu(){
 	this.pos = v.selectedTile.pos
 	mod = 30 * v.scale
-	this.size = [150, 250] //Calculate this later
+	this.size = [200, 300] //Calculate this later
 	x = this.pos[0] * mod + v.scrollX + 20 * v.scale;
 	y = this.pos[1] * mod + v.scrollY - 1/2;
 	back = new Phaser.Graphics(game)
@@ -145,6 +186,23 @@ function tileMenu(){
 	this.height = 1
 	game.add.tween(this).to({ width: this.size[0], height: this.size[1] }, 250, null, true, 0);
 	
+	this.tiles = []
+	for (i in v.layered.children){
+		if (v.layered.children[i].tile == v.selectedTile){
+			this.tiles.push(v.layered.children[i])
+		}
+	}
+	for (i in v.ground.children){
+		if (v.ground.children[i].tile == v.selectedTile){
+			this.tiles.push(v.ground.children[i])
+		}
+	}
+	
+	for (i in this.tiles){
+		b = new harvestButton(30 + 100*i, this.tiles[i].type)
+		//this.buttons.add(b)
+		this.addChild(b)
+	}
 	
 	return this
 }
