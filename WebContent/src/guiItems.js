@@ -18,14 +18,18 @@ hover.prototype.update = function() {
 	this.y = Math.round((game.input.y - (v.scrollY % mod)) / mod) * mod + (v.scrollY % mod)
 	
 	if (this.y > 580){
+		v.cancelMouse = true;
+	}
+	if (v.cancelMouse){
 		this.visible = false;
 	}
 	else{
 		this.visible = true;
 	}
 	
-	if (this.game.input.activePointer.leftButton.isDown) {
+	if (this.game.input.activePointer.leftButton.isDown && !v.cancelMouse) {
 		p = [Math.round((this.x - v.scrollX)/mod), Math.round((this.y - v.scrollY)/mod)]
+		console.log(p)
 		for (t in v.tiles.children){
 			if (v.tiles.children[t].pos[0] == p[0] && v.tiles.children[t].pos[1] == p[1]){
 				if (v.tMenu != null){
@@ -97,7 +101,7 @@ selectedOutline.prototype.update = function() {
 	}
 };
 
-function popButton(x, type){
+function popButton(x, typ){
 	//Phaser.Button.call(this, game, x, 700, 'gui/blankButton', function(){}, this, 1, 0, 1, 0);
 	var button = game.make.button(x, 650, 'gui/blankButton', function(){}, this, 1, 0, 0, 0);
 	button.anchor.set(0.5, 0.5);
@@ -107,16 +111,16 @@ function popButton(x, type){
 	button.onInputOver.add(function(){button.y += 4}, this)
 	button.onInputOut.add(function(){button.y -= 4}, this)
 	
-	if (type == "buildings"){
+	if (typ == "buildings"){
 		var iconKey = 'gui/buildingsIcon';
 	}
-	if (type == "units"){
+	if (typ == "units"){
 		var iconKey = 'gui/unitsIcon';
 	}
-	if (type == "orders"){
+	if (typ == "orders"){
 		var iconKey = 'gui/ordersIcon';
 	}
-	if (type == "map"){
+	if (typ == "map"){
 		var iconKey = 'gui/mapIcon';
 	}
 	var icon = new Phaser.Sprite(game, 0, 0, iconKey)
@@ -127,8 +131,10 @@ function popButton(x, type){
 	return button
 }
 
-function harvestButton(y, type){
+function harvestButton(menu, y, typ){
 	Phaser.Button.call(this, game, 100, y, 'buttonBeige', function(){}, this, 1, 0, 1, 0);
+	this.typ = typ;
+	this.menu = menu;
 	//var button = game.make.button(x, 650, 'gui/blankButton', function(){}, this, 1, 0, 0, 0);
 	this.anchor.set(0.5, 0.5);
 	this.width = 180;
@@ -136,14 +142,15 @@ function harvestButton(y, type){
 	
 	this.onInputOver.add(function(){this.y += 4}, this)
 	this.onInputOut.add(function(){this.y -= 4}, this)
+	this.onInputDown.add(this.press, this)
 	
-	if (type == "grass"){
+	if (typ == "grass"){
 		var iconKey = 'gui/harvestIcon';
-		var label = "Harvest Grass"
+		this.label = "Harvest Grass"
 	}
-	if (type == "tree"){
+	if (typ == "tree"){
 		var iconKey = 'gui/chopIcon';
-		var label = "Chop Tree"
+		this.label = "Chop Tree"
 	}
 	var icon = new Phaser.Sprite(game, -70, 0, iconKey)
 	icon.width = 30
@@ -154,9 +161,9 @@ function harvestButton(y, type){
 	style = {
 			'font': 'Galdeano', 
 			'fill': 'black', 
-			'fontSize': ((this.width - (40/190 * this.width)) / label.length) * 2
+			'fontSize': ((this.width - (40/190 * this.width)) / this.label.length) * 2
 		}
-	var text = new Phaser.Text(game, -40, 0, label, style);
+	var text = new Phaser.Text(game, -40, 0, this.label, style);
 	//while(text.height > this.height-30 && text.fontSize > 0) {  text.fontSize--;  text.updateText();}
 	text.anchor.set(0, 0.49);
 	this.addChild(text);
@@ -166,6 +173,17 @@ function harvestButton(y, type){
 harvestButton.prototype = Object.create(Phaser.Button.prototype);
 harvestButton.prototype.constructor = harvestButton;
 harvestButton.prototype.update = function() {}
+harvestButton.prototype.press = function() {
+	console.log("PRESSED")
+	for (i in this.menu.tiles){
+		if (this.menu.tiles[i].typ == this.typ){
+			v.orders.push({
+				name: this.label,
+				object: this.menu.tiles[i],
+			})
+		}
+	}
+} 
 
 
 
@@ -199,7 +217,7 @@ function tileMenu(){
 	}
 	
 	for (i in this.tiles){
-		b = new harvestButton(30 + 100*i, this.tiles[i].type)
+		b = new harvestButton(this, 30 + 100*i, this.tiles[i].typ)
 		//this.buttons.add(b)
 		this.addChild(b)
 	}
@@ -222,5 +240,10 @@ tileMenu.prototype.update = function() {
 	}
 	else {
 		this.visible = true
+	}
+	
+	r = new Phaser.Rectangle(this.x, this.y, this.width, this.height)
+	if (r.contains(game.input.x, game.input.y)){
+		v.cancelMouse = true;
 	}
 };

@@ -12,6 +12,8 @@ var v = {
 	ground: null, //group for unordered tile additions
 	layered: null, //group for objects that are 2.5D
 	tMenu: null,
+	orders: [],
+	cancelMouse: false,
 };
 
 var game = new Phaser.Game(v.gameWidth, v.gameHeight, Phaser.CANVAS, "game");

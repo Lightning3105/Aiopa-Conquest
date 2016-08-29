@@ -28,7 +28,7 @@ theGame.prototype = {
 				}
 				if (v.tiles.children[t].terrain == 3){
 					if (Math.random() > 0.5){
-						s = new tree(v.tiles.children[t], randomInt(-5, 5), randomInt(-5, 0), 'tree/tree-' + randomInt(1, 1))
+						s = new tree(v.tiles.children[t], randomInt(-5, 5), randomInt(0, 30), 'tree/tree-' + randomInt(1, 1))
 						v.layered.add(s)
 						//v.tiles.children[t].addChild(s)
 					}
@@ -45,6 +45,9 @@ theGame.prototype = {
 			game.world.bringToTop(h)
 			game.world.bringToTop(v.layered)
 			
+			c = new character(50, 50, 'character/character-1')
+			v.layered.add(c)
+			
 			var popButtons = game.add.group();
 			popButtons.add(popButton(70, "buildings"))
 			popButtons.add(popButton(220, "units"))
@@ -58,9 +61,11 @@ theGame.prototype = {
 	    		var rect = new Phaser.Rectangle(v.selectedTile.x, v.selectedTile.y, 30 * v.scale, 30 * v.scale);
 	    		this.game.debug.geom(rect, 'ff00000')
 	    	}*/
+	    	game.debug.text("cancelMouse: " + v.cancelMouse, 32, 32);
 	    },
 	    
 	    update: function(){
+	    	v.cancelMouse = false;
 	    	v.layered.sort('y', Phaser.Group.SORT_ASCENDING);
 	    	if (this.game.input.activePointer.middleButton.isDown) {
 	    	    if (this.game.origDragPoint) { // move the camera by the amount the mouse has moved since last update

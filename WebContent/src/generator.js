@@ -42,3 +42,73 @@ function randomInt(min,max)
 	out = Math.floor(Math.random()*(max-min+1)+min);
     return out
 }
+
+function getWalls(){
+	v.levelHit = []
+	for (var x = 0; x < v.width; x++) {
+		v.levelHit.push([])
+		for (var y = 0; y < v.height; y++) {
+			v.levelHit[x].push("-")
+		}
+	}
+	for (i in v.tiles.children){
+		if (v.tiles.children[i].terrain == 4 || v.tiles.children[i].terrain == 0){
+			v.levelHit[v.tiles.children[i].pos[0]][v.tiles.children[i].pos[1]] = 1;
+		}
+		else{
+			v.levelHit[v.tiles.children[i].pos[0]][v.tiles.children[i].pos[1]] = 0;
+		}
+	}
+}
+
+function getPath(start, end, character){
+	console.log("get path")
+	getWalls();
+	console.log("got walls")
+	var easystar = new EasyStar.js();
+	easystar.setGrid(v.levelHit);
+	easystar.setAcceptableTiles([0]);
+	easystar.enableDiagonals();
+	
+	var outPath = null;
+	
+	easystar.findPath(start[0], start[1], end[0], end[1], function( path ) {
+        if (path === null) {
+	        console.log("The path to the destination \
+                           point was not found.");
+	    } 
+        else{
+        	outPath = []
+        	for (p in path){
+        		if (p != path.length-1){
+        			p = parseInt(p)
+	        		/*point = path[p]
+		        	dx = point.x - old.x
+		    		dy = point.y - old.y
+		    		dh = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2))
+		    		dm = character.speed / dh
+		    		cx = dx / dm
+		    		cy = dy / dm
+		    		console.log(point)*/
+		    		//path.splice(p+1, 0, {x: point.x + cy, y: point.y + cy})
+        			midx = (path[p].x + path[p + 1].x) / 2
+        			midy = (path[p].y + path[p + 1].y) / 2
+        			outPath.push(path[p])
+        			outPath.push({x: midx, y: midy})
+        		}
+        		else{
+        			outPath.push(path[p])
+        		}
+        	}
+        }
+        character.path = outPath;
+        /*else {
+	    	for (var i = 0; i < path.length; i++){
+	    		console.log("P: " + i + ", \
+                             X: " + path[i].x + ", \
+                             Y: " + path[i].y);
+	    	}
+	    } */
+	});
+	easystar.calculate();
+}

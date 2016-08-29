@@ -33,6 +33,8 @@ function terrainTile(x, y, terrain){
 	this.addChild(this.highlight) */
 	game.add.existing(this);
 	
+	this.tPos = this.pos
+	
 }
 
 terrainTile.prototype = Object.create(Phaser.Sprite.prototype);
@@ -70,8 +72,10 @@ function shrub(tile, x, y, key){
 	this.tile = tile
 	this.size = [20, 20]
 	//game.add.existing(this);
-	this.type = "grass";
+	this.typ = "grass";
 	game.add.existing(this)
+	
+	this.tPos = this.tile.pos
 }
 
 shrub.prototype = Object.create(Phaser.Sprite.prototype);
@@ -103,8 +107,10 @@ function tree(tile, x, y, key){
 	this.tile = tile
 	this.size = [80, 80]
 	//game.add.existing(this);
-	this.type = "tree";
+	this.typ = "tree";
 	game.add.existing(this)
+	
+	this.tPos = this.tile.pos
 }
 
 tree.prototype = Object.create(Phaser.Sprite.prototype);
@@ -116,5 +122,13 @@ tree.prototype.update = function() {
 	this.x = this.tile.pos[0] * mod + v.scrollX + this.pos[0] * v.scale;
 	this.y = this.tile.pos[1] * mod + v.scrollY + this.pos[1] * v.scale;
 	
-	this.visible = this.tile.visible
+	if (this.x < 0 - this.width || this.x > v.gameWidth + this.width) {
+		this.visible = false
+	}
+	else if (this.y < 0 - this.height || this.y > v.gameHeight + this.height) {
+		this.visible = false
+	}
+	else {
+		this.visible = true
+	}
 }
